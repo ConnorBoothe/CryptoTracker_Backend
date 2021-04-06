@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true,useUnifiedTopology: true },function(err){
     console.log("Connect")
 });
@@ -29,7 +30,6 @@ module.exports = class User {
         return UserDB.find({email: email});
       }
       addUser(first_name, last_name, email, password){
-        console.log("calling add user")
         var user =new UserDB({first_name: first_name, last_name: last_name,
            email: email, password: password} );
         return user.save();
