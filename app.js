@@ -1,20 +1,18 @@
 require('dotenv').config();
 const express = require('express');
 const https = require('https');
-// const mongoose = require("mongoose");
-// mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true,useUnifiedTopology: true },function(err){
-//     console.log("Connect")
-// });
 const app = module.exports = express(); 
-//API Routes
+
+//API Controllers
 app.use([
-    require('./Controllers/AddUser.js')
+    require('./Controllers/AddUser.js'),
+    require('./Controllers/GetUsers.js'),
+    require('./Controllers/GetUser.js')
 ]); 
 
 //Wildcard route
 app.get('*', function(req, res) {
-    res.json("Not valid")
+    res.send("Not valid")
 });
-
-https.createServer(app).listen(8080);
+app.listen(8080);
 
