@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-console.log(process.env.MONGO_URL)
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true,useUnifiedTopology: true },function(err){
     console.log("Connect")
 });
@@ -26,8 +25,17 @@ module.exports = class User {
       getUserById(id){
         return UserDB.find({_id: id});
       }
-      getUserByEmail(email){
-        return UserDB.find({email: email});
+      getUserByEmail(email, password){
+        return UserDB.find(
+          {
+            $and:
+              [{
+                email: email,
+                password: password
+              }]
+          }
+          
+          );
       }
       addUser(first_name, last_name, email, password){
         var user =new UserDB({first_name: first_name, last_name: last_name,
