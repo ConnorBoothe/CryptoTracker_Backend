@@ -6,6 +6,7 @@ const app = module.exports = express();
 //API Controllers
 app.use([
     require('./Controllers/AddUser.js'),
+    require('./Controllers/AddCoin.js'),
     require('./Controllers/GetUsers.js'),
     require('./Controllers/GetUser.js')
 ]); 
