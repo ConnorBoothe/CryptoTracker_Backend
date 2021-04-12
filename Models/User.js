@@ -41,6 +41,37 @@ module.exports = class User {
         var user =new UserDB({first_name: first_name, last_name: last_name,
            email: email, password: password} );
         return user.save();
-    }
-     
+      }
+      addCoin(email, name, amount){
+        console.log(email)
+        return new Promise((resolve, reject) => {
+          UserDB.findOne({email: email})
+          .then((user)=>{
+            var coinIndex = -1;
+            for(var i = 0; i < user.coins.length;i++){
+              console.log(user.coins[i].name)
+              if(user.coins[i].name == name){
+                coinIndex = i;
+              }
+            }
+            console.log(coinIndex)
+            if(coinIndex > -1){
+              console.log("running running")
+              console.log(user.coins[coinIndex].amount)
+              user.coins[coinIndex].amount += parseFloat(amount);
+              console.log(user.coins[coinIndex].amount)
+            }
+            else{
+              console.log("running else")
+              user.coins.push({name:name, amount: amount});
+            }
+            
+            user.save()
+            resolve(user);
+          })
+          .catch((err)=>{
+            reject(err)
+          })
+      })
+}
 }
