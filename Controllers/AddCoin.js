@@ -11,11 +11,9 @@ var User = require('../models/User');
 var users = new User();
 //endpoint to add user to database
 router.post('/API/AddCoin', function(req, res){
- 
     users.addCoin(req.body.email,req.body.name, req.body.amount)
-     .then(function(){
-         console.log("Added coin")
-         res.json("Complete")
+     .then(function(user){
+         res.json(user)
      })
      .catch((err)=>{
          res.json("Error")
