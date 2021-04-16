@@ -74,4 +74,33 @@ module.exports = class User {
           })
       })
 }
+sellCoin(email, name, amount){
+  console.log("Selling coin ohh noooo")
+  return new Promise((resolve, reject) => {
+    UserDB.findOne({email: email})
+    .then((user)=>{
+      var coinIndex = -1;
+      for(var i = 0; i < user.coins.length;i++){
+        if(user.coins[i].name == name){
+          coinIndex = i;
+        }
+      }
+      if(coinIndex > -1){
+        user.coins[coinIndex].amount -= parseFloat(amount);
+        if(user.coins[coinIndex].amount <= 0) {
+          user.coins.splice(coinIndex)
+        }
+      }
+      else{
+        console.log("Didn't find the coin in list")
+      }
+      
+      user.save()
+      resolve(user);
+    })
+    .catch((err)=>{
+      reject(err)
+    })
+})
+}
 }
