@@ -7,6 +7,7 @@ const app = module.exports = express();
 app.use([
     require('./Controllers/AddUser.js'),
     require('./Controllers/AddCoin.js'),
+    require('./Controllers/SellCoin.js'),
     require('./Controllers/GetUsers.js'),
     require('./Controllers/GetUser.js')
 ]); 
